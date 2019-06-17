@@ -33,36 +33,39 @@ int main(int argc, string argv[])
                 keyword[i] = tolower(input[i]);
             }          
             i++;
-        }
-        
+        }     
         //ask for plain text----------       
         string text = get_string("plaintext:  ");
         // make ciphertext
         printf("ciphertext: ");
+        int modifier = 0; //modifier that ensure that when non-letter symbol is printed key doesnt switch
         for (int j = 0, m = strlen(text); j < m; j++)
         {
-            int key;  
+            int key;    
             int k = text[j];  
             //for big letters
             if ((k >= 'A') && (k <= 'Z'))
             {
-                key = keyword[j % key_len] - 'a';
+                key = keyword[(j - modifier) % key_len] - 'a';
                 k = conv(k, key, 'A');         
             }
             //for small letters
             else if ((k >= 'a') && (k <= 'z'))
             {
-                key = keyword[j % key_len] - 'a';
+                key = keyword[(j - modifier) % key_len] - 'a';
                 k = conv(k, key, 'a');       
+            }
+            //make sure that when non-letter symbol is printed key doesnt switch
+            else
+            {
+                modifier++;
             }
             //print ciphertext char
             text[j] = k;
             printf("%c", text[j]);
-
         }
         printf("\n");
     }
-
     return 0;
 }
 
