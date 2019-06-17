@@ -12,7 +12,7 @@ int main(int argc, string argv[])
     if (argc != 2)
     {
         printf("Usage: ./vigenere keyword\n"); 
-        return 3;
+        return 1;
     }
     else
     {
@@ -41,17 +41,19 @@ int main(int argc, string argv[])
         printf("ciphertext: ");
         for (int j = 0, m = strlen(text); j < m; j++)
         {
-            int key = keyword[j % key_len] - 97; 
+            int key;  
             int k = text[j];  
             //for big letters
             if ((k >= 'A') && (k <= 'Z'))
             {
-                k = conv(i, key, 65);         
+                key = keyword[j % key_len] - 'a';
+                k = conv(k, key, 'A');         
             }
             //for small letters
             else if ((k >= 'a') && (k <= 'z'))
             {
-                k = conv(k, key, 97);       
+                key = keyword[j % key_len] - 'a';
+                k = conv(k, key, 'a');       
             }
             //print ciphertext char
             text[j] = k;
