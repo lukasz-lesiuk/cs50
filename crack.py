@@ -23,32 +23,65 @@ def main(argv):
     #get list of all relevant letters
     letters_lower = string.ascii_lowercase
     letters_upper = string.ascii_uppercase
-    letters = 'abcdev' + 'AQRSD' #letters_lower + letters_upper
+    letters = letters_lower + letters_upper
     print(letters)
     #get a salt
     salt = password[0] + password[1]
 
-    for key in letters:
+    #check all 1 letter passwords
+    for key_letter1 in letters:
+        key = key_letter1
         print(key)
         key_hashed = crypt.crypt(key, salt)
-        print(key_hashed)
-
         if password == key_hashed:
-            print("PASSWORD FOUND")
-            break
-        else:
-            for key_letter1 in letters:
-                for key_letter2 in letters:
-                    key = key_letter1 + key_letter2
+            print("PASSWORD FOUND:", key)
+            sys.exit(0)
+
+    #check all 2 letter passwords
+    for key_letter1 in letters:
+        for key_letter2 in letters:
+            key = key_letter1 + key_letter2
+            print(key)
+            key_hashed = crypt.crypt(key, salt)
+            if password == key_hashed:
+                print("PASSWORD FOUND:", key)
+                sys.exit(0)
+
+    #check all 3 letter passwords
+    for key_letter1 in letters:
+        for key_letter2 in letters:
+            for key_letter3 in letters:
+                key = key_letter1 + key_letter2 + key_letter3
+                print(key)
+                key_hashed = crypt.crypt(key, salt)
+                if password == key_hashed:
+                    print("PASSWORD FOUND:", key)
+                    sys.exit(0)
+
+    #check all 4 letter passwords
+    for key_letter1 in letters:
+        for key_letter2 in letters:
+            for key_letter3 in letters:
+                for key_letter4 in letters:
+                    key = key_letter1 + key_letter2 + key_letter3 + key_letter4
                     print(key)
                     key_hashed = crypt.crypt(key, salt)
-                    print(key_hashed)
                     if password == key_hashed:
-                        print("PASSWORD FOUND")
+                        print("PASSWORD FOUND:", key)
                         sys.exit(0)
 
-    print(key)
-
+    #check all 5 letter passwords
+        for key_letter1 in letters:
+            for key_letter2 in letters:
+                for key_letter3 in letters:
+                    for key_letter4 in letters:
+                        for key_letter5 in letters:
+                            key = key_letter1 + key_letter2 + key_letter3 + key_letter4 + key_letter5
+                            print(key)
+                            key_hashed = crypt.crypt(key, salt)
+                            if password == key_hashed:
+                                print("PASSWORD FOUND:", key)
+                                sys.exit(0)
 
 
 if __name__ == "__main__":
