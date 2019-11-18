@@ -23,9 +23,10 @@ def main(argv):
     #get list of all relevant letters
     letters_lower = string.ascii_lowercase
     letters_upper = string.ascii_uppercase
-    letters = letters_lower + letters_upper
+    letters = 'abcdev' + 'AQRSD' #letters_lower + letters_upper
+    print(letters)
     #get a salt
-    salt = password[0] + password[1] # +'\0'
+    salt = password[0] + password[1]
 
     for key in letters:
         print(key)
@@ -35,16 +36,16 @@ def main(argv):
         if password == key_hashed:
             print("PASSWORD FOUND")
             break
-
-
-#        else:
-#            for key_letter1 in letters:
-#                for key_letter2 in letters:
-#                    key = key_letter1 + key_letter2
-#                    print(key)
-#                    key_hashed = crypt.crypt(key, salt)
-#                    print(key_hashed)
-#                    compare(key, password)
+        else:
+            for key_letter1 in letters:
+                for key_letter2 in letters:
+                    key = key_letter1 + key_letter2
+                    print(key)
+                    key_hashed = crypt.crypt(key, salt)
+                    print(key_hashed)
+                    if password == key_hashed:
+                        print("PASSWORD FOUND")
+                        sys.exit(0)
 
     print(key)
 
